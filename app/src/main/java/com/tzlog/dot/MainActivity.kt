@@ -1,5 +1,6 @@
 package com.tzlog.dot
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -56,7 +57,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun click03(v :View){
-        KLog.iTag("学车业务","科目一",XML)
+
+        KLog.i("学车业务","科目一",XML)
     }
 
     fun click04(v :View){
@@ -64,11 +66,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun click05(v :View){
-        KLogChooseActivity.enter(this)
+        KLogChooseActivity.enterForResult(this)
 //        for (i:Int in 0..30){
 //            KLog.file("输入字符到文件中")
 //            KLog.file(KLog.I,"输入info类型的字符到文件中")
 //        }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == KLogChooseActivity.REQUEST_CODE && resultCode == KLogChooseActivity.RESULT_CODE){
+            data?.run {
+                var list = this.getStringArrayListExtra(KLogChooseActivity.DATA_CODE)
+                list?.let {
+
+                }
+            }
+        }
+    }
+
 
 }

@@ -516,7 +516,7 @@ class KLog private constructor() {
             log(V, sConfig!!.mGlobalTag, *contents)
         }
 
-        fun vTag(tag: String, vararg contents: Any) {
+        private fun vTag(tag: String, vararg contents: Any) {
             log(V, tag, *contents)
         }
 
@@ -524,7 +524,7 @@ class KLog private constructor() {
             log(D, sConfig!!.mGlobalTag, *contents)
         }
 
-        fun dTag(tag: String, vararg contents: Any) {
+        private fun dTag(tag: String, vararg contents: Any) {
             log(D, tag, *contents)
         }
 
@@ -532,7 +532,7 @@ class KLog private constructor() {
             log(I, sConfig!!.mGlobalTag, *contents)
         }
 
-        fun iTag(tag: String, vararg contents: Any) {
+        private fun iTag(tag: String, vararg contents: Any) {
             log(I, tag, *contents)
         }
 
@@ -540,7 +540,7 @@ class KLog private constructor() {
             log(W, sConfig!!.mGlobalTag, *contents)
         }
 
-        fun wTag(tag: String, vararg contents: Any) {
+        private fun wTag(tag: String, vararg contents: Any) {
             log(W, tag, *contents)
         }
 
@@ -548,7 +548,7 @@ class KLog private constructor() {
             log(E, sConfig!!.mGlobalTag, *contents)
         }
 
-        fun eTag(tag: String, vararg contents: Any) {
+        private fun eTag(tag: String, vararg contents: Any) {
             log(E, tag, *contents)
         }
 
@@ -556,7 +556,7 @@ class KLog private constructor() {
             log(A, sConfig!!.mGlobalTag, *contents)
         }
 
-        fun aTag(tag: String, vararg contents: Any) {
+        private fun aTag(tag: String, vararg contents: Any) {
             log(A, tag, *contents)
         }
 
@@ -564,15 +564,15 @@ class KLog private constructor() {
             log(FILE or D, sConfig!!.mGlobalTag, content)
         }
 
-        fun file(@TYPE type: Int, content: Any) {
+        private fun file(@TYPE type: Int, content: Any) {
             log(FILE or type, sConfig!!.mGlobalTag, content)
         }
 
-        fun file(tag: String, content: Any) {
+        private fun file(tag: String, content: Any) {
             log(FILE or D, tag, content)
         }
 
-        fun file(@TYPE type: Int, tag: String, content: Any) {
+        private fun file(@TYPE type: Int, tag: String, content: Any) {
             log(FILE or type, tag, content)
         }
 
@@ -580,7 +580,7 @@ class KLog private constructor() {
             log(JSON or D, sConfig!!.mGlobalTag, content)
         }
 
-        fun json(@TYPE type: Int, content: String) {
+        private fun json(@TYPE type: Int, content: String) {
             log(JSON or type, sConfig!!.mGlobalTag, content)
         }
 
@@ -588,7 +588,7 @@ class KLog private constructor() {
             log(JSON or D, tag, content)
         }
 
-        fun json(@TYPE type: Int, tag: String, content: String) {
+        private fun json(@TYPE type: Int, tag: String, content: String) {
             log(JSON or type, tag, content)
         }
 
@@ -596,7 +596,7 @@ class KLog private constructor() {
             log(XML or D, sConfig!!.mGlobalTag, content)
         }
 
-        fun xml(@TYPE type: Int, content: String) {
+        private fun xml(@TYPE type: Int, content: String) {
             log(XML or type, sConfig!!.mGlobalTag, content)
         }
 
@@ -604,11 +604,11 @@ class KLog private constructor() {
             log(XML or D, tag, content)
         }
 
-        fun xml(@TYPE type: Int, tag: String, content: String) {
+        private fun xml(@TYPE type: Int, tag: String, content: String) {
             log(XML or type, tag, content)
         }
 
-        fun log(type: Int, tag: String?, vararg contents: Any) {
+        private fun log(type: Int, tag: String?, vararg contents: Any) {
             if (!sConfig!!.mLogSwitch || !sConfig!!.mLog2ConsoleSwitch && !sConfig!!.mLog2FileSwitch)
                 return
             val type_low = type and 0x0f
@@ -892,6 +892,16 @@ class KLog private constructor() {
             } else {
                 Log.println(type, tag, msg)
             }
+        }
+
+        fun getDirPath(): String{
+            return (
+            (if (sConfig!!.mDir == null)
+                sConfig!!.mDefaultDir
+            else
+                sConfig!!.mDir)
+                    + "" )
+//                    + sConfig!!.mFilePrefix )
         }
 
         private fun print2File(type: Int, tag: String, msg: String) {

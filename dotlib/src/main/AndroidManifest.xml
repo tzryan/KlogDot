@@ -2,7 +2,7 @@
           package="com.tzlog.dotlib">
 
     <application >
-        <activity android:name=".KLogChooseActivity"/>
+        <activity android:name=".KLogChooseActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

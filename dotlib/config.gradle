@@ -1,93 +1,93 @@
-apply plugin: 'maven'
-
-ext {
-    // 从Github上clone下来的项目的本地地址
-//    GITHUB_REPO_PATH = "D:\\WorkDir\\WorkCode\\myCodingNet\\tzLogDot"       //这里指定的就是刚刚新建项目后clone下来的在本地的路径
-    GITHUB_REPO_PATH = uri('../')      //这里指定的就是刚刚新建项目后clone下来的在本地的路径
-    PUBLISH_GROUP_ID = 'com.tzlog.dotlib'
-    PUBLISH_ARTIFACT_ID = 'tzlogdot_lib'
-    PUBLISH_VERSION = '1.0.0'
-}
+//apply plugin: 'maven'
+//
+//ext {
+//    // 从Github上clone下来的项目的本地地址
+////    GITHUB_REPO_PATH = "D:\\WorkDir\\WorkCode\\myCodingNet\\tzLogDot"       //这里指定的就是刚刚新建项目后clone下来的在本地的路径
+//    GITHUB_REPO_PATH = uri('../')      //这里指定的就是刚刚新建项目后clone下来的在本地的路径
+//    PUBLISH_GROUP_ID = 'com.tzlog.dotlib'
+//    PUBLISH_ARTIFACT_ID = 'tzlogdot_lib'
+//    PUBLISH_VERSION = '1.0.0'
+//}
+////uploadArchives {
+////    repositories.mavenDeployer {
+////        def deployPath = file(project.GITHUB_REPO_PATH)
+////        repository(url: "file://${deployPath.absolutePath}")
+////        pom.project {
+////            groupId project.PUBLISH_GROUP_ID
+////            artifactId project.PUBLISH_ARTIFACT_ID
+////            version project.PUBLISH_VERSION
+////        }
+////    }
+////}
+////
+////// 源代码一起打包
+////task androidSourcesJar(type: Jar) {
+////    classifier = 'sources'
+////    from android.sourceSets.main.java.sourceFiles
+////}
+//////配置需要上传到maven仓库的文件
+////artifacts {
+////    archives androidSourcesJar
+////}
+//
+////新 开始
+//
+//task androidJavadocs(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+//
+//task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
+//    classifier = 'javadoc'
+//    from androidJavadocs.destinationDir
+//}
+//
+//task androidSourcesJar(type: Jar) {
+//    classifier = 'sources'
+//    from android.sourceSets.main.java.srcDirs
+//}
+//
+//artifacts {
+//    //aar包增加源码
+//    archives androidSourcesJar
+//    //aar包增加注释
+//    archives androidJavadocsJar
+//}
+//
 //uploadArchives {
-//    repositories.mavenDeployer {
-//        def deployPath = file(project.GITHUB_REPO_PATH)
-//        repository(url: "file://${deployPath.absolutePath}")
-//        pom.project {
-//            groupId project.PUBLISH_GROUP_ID
-//            artifactId project.PUBLISH_ARTIFACT_ID
-//            version project.PUBLISH_VERSION
+//    repositories {
+//        mavenDeployer {
+//            repository(url: "http://IP_Address:PORT/nexus/content/repositories/snapshots/") {
+//                authentication(userName: "账号", password: "密码")
+//            }
+//            pom.project {
+//                groupId = "com.android" //包名
+//                artifactId = "utils"             //名称
+//                version = "0.0.1-SNAPSHOT"  //版本
+//
+//                licenses {
+//                    license {
+//                        name 'The Apache Software License, Version 2.0'
+//                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    }
+//                }
+//            }
 //        }
 //    }
 //}
 //
-//// 源代码一起打包
-//task androidSourcesJar(type: Jar) {
-//    classifier = 'sources'
-//    from android.sourceSets.main.java.sourceFiles
-//}
-////配置需要上传到maven仓库的文件
-//artifacts {
-//    archives androidSourcesJar
-//}
-
-//新 开始
-
-task androidJavadocs(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-    classifier = 'javadoc'
-    from androidJavadocs.destinationDir
-}
-
-task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
-}
-
-artifacts {
-    //aar包增加源码
-    archives androidSourcesJar
-    //aar包增加注释
-    archives androidJavadocsJar
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "http://IP_Address:PORT/nexus/content/repositories/snapshots/") {
-                authentication(userName: "账号", password: "密码")
-            }
-            pom.project {
-                groupId = "com.android" //包名
-                artifactId = "utils"             //名称
-                version = "0.0.1-SNAPSHOT"  //版本
-
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-            }
-        }
-    }
-}
-
-//新结束
-
-
-//---------- 以下可以根据需要 解注释 -----------------
-
-//发布到本地
-//uploadArchives{
-//    repositories.mavenDeployer{
-//        // 配置本地仓库路径，项目根目录下的repository目录中
-//        repository(url: uri('../repository'))
-//        pom.groupId = "com.tzlib.autolayout"// 唯一标识（通常为模块包名，也可以任意）
-//        pom.artifactId = "AutoLayoutLib" // 项目名称（通常为类库模块名称，也可以任意）
-//        pom.version = "1.0.0" // 版本号
-//    }
-//}
+////新结束
+//
+//
+////---------- 以下可以根据需要 解注释 -----------------
+//
+////发布到本地
+////uploadArchives{
+////    repositories.mavenDeployer{
+////        // 配置本地仓库路径，项目根目录下的repository目录中
+////        repository(url: uri('../repository'))
+////        pom.groupId = "com.tzlib.autolayout"// 唯一标识（通常为模块包名，也可以任意）
+////        pom.artifactId = "AutoLayoutLib" // 项目名称（通常为类库模块名称，也可以任意）
+////        pom.version = "1.0.0" // 版本号
+////    }
+////}

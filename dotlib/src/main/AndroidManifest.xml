@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.tzlog.dotlib">
+
+    <application >
+        <activity android:name=".KLogChooseActivity"/>
+    </application>
+
+</manifest>

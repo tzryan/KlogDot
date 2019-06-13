@@ -12,6 +12,7 @@
             android:layout_centerVertical="true"
             android:paddingEnd="30dp"
             android:textSize="16sp"
+            android:background="?selectableItemBackground"
             tools:text="2017/06/13 16:23 大小1KB"/>
 
     <CheckBox

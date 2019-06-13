@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,21 +29,29 @@ class KLogChooseActivity : AppCompatActivity() {
         const val REQUEST_CODE = 1001
         const val RESULT_CODE = 1002
         const val DATA_CODE = "KLogChooseData"
+        const val LOCAL_CHECK_CODE = "localCheck"
 
-        fun enterForResult(ctx: Activity){
+        fun enterForResult(ctx: Activity,localCheck:Boolean = false){
             var i = Intent(ctx,KLogChooseActivity::class.java)
+            i.putExtra(LOCAL_CHECK_CODE,localCheck)
             ctx.startActivityForResult(i,REQUEST_CODE)
         }
     }
 
     val listdata = arrayListOf<IData>()
     var mAdapter: MyAdapter? = null
+    var localCheck = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chooselog)
+        initExtraData()
         initData()
 
+    }
+
+    private fun initExtraData() {
+        localCheck = intent.getBooleanExtra(LOCAL_CHECK_CODE,false)
     }
 
     fun initData(){
@@ -56,11 +66,9 @@ class KLogChooseActivity : AppCompatActivity() {
             }
         }
         //   /storage/emulated/0/Android/data/com.tzlog.dot/cache/log/KLog-2019-06-12H18.txt
-//        for (i in 30 downTo 0 step 1) {
-//            //for循环从30开始降到0，每次减1
-//        }
         mRecyclerView.layoutManager = LinearLayoutManager(this)
         mAdapter =  MyAdapter(this,listdata)
+        mAdapter?.localCheck = localCheck
         mRecyclerView.adapter = mAdapter
         tv_cancel.setOnClickListener { v->
             setResult(RESULT_CODE,null)
@@ -74,11 +82,22 @@ class KLogChooseActivity : AppCompatActivity() {
                         _list.add(this.mDatas[i].file.absolutePath)
                     }
                 }
+                if(_list.size <= 0){
+                    Toast.makeText(this@KLogChooseActivity,"请选择上传日志",Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
                 val i = Intent()
                 i.putExtra(DATA_CODE,_list)
                 setResult(RESULT_CODE,i)
             }
             finish()
+        }
+        if(listdata.size <= 0){
+            tv_no_data.visibility = View.VISIBLE
+            mRecyclerView.visibility = View.GONE
+        }else{
+            tv_no_data.visibility = View.GONE
+            mRecyclerView.visibility = View.VISIBLE
         }
     }
 

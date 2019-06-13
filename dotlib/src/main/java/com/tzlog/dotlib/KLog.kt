@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.IntDef
 import androidx.annotation.RequiresApi
@@ -55,21 +56,21 @@ class KLog private constructor() {
         var mGlobalTag: String? = null  // The global tag of log.
         var mTagIsSpace = true  // The global tag is space.
         var mLogHeadSwitch = true  // The head's switch of log.
-        var mLog2FileSwitch = false // The file's switch of log.
+        var mLog2FileSwitch = true // The file's switch of log.
         var mLogBorderSwitch = true  // The border's switch of log.
         var mSingleTagSwitch = true  // The single tag of log.
         var mConsoleFilter = V     // The console's filter of log.
         var mFileFilter = V     // The file's filter of log.
         var mStackDeep = 1     // The stack's deep of log.
         var mStackOffset = 0     // The stack's offset of log.
-        var mSaveDays = -1    // The save days of log.
+        var mSaveDays :Float = -1.0f    // The save days of log.
 
         init {
             if (mDefaultDir == null) {
                 if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState() && sAppContext!!.externalCacheDir != null)
-                    mDefaultDir = sAppContext!!.externalCacheDir.toString() + FILE_SEP + "log" + FILE_SEP
+                    mDefaultDir = sAppContext!!.externalCacheDir.toString() + FILE_SEP + "klog" + FILE_SEP
                 else {
-                    mDefaultDir = sAppContext!!.cacheDir.toString() + FILE_SEP + "log" + FILE_SEP
+                    mDefaultDir = sAppContext!!.cacheDir.toString() + FILE_SEP + "klog" + FILE_SEP
                 }
             }
         }
@@ -159,7 +160,12 @@ class KLog private constructor() {
             return this
         }
 
-        fun setSaveDays(@androidx.annotation.IntRange(from = 1) saveDays: Int): Config {
+        /**
+         * @param saveDays
+         * 至少1分钟以上（0.00069天）
+         * 最大不得超过30天
+         * */
+        fun setSaveDays(@androidx.annotation.FloatRange(from = 0.00069 , to = 30.0) saveDays: Float): Config {
             mSaveDays = saveDays
             return this
         }
@@ -489,6 +495,7 @@ class KLog private constructor() {
 
         private var sAppContext: Context? = null
         private var sConfig: Config? = null
+        private var show_logcat: Boolean = false
 
         fun init(context: Context): Config {
             sAppContext = context
@@ -505,14 +512,29 @@ class KLog private constructor() {
             }
 
         /**
+         * @param showLogcat 是否显示在Logcat
          * @param blockName 版块名称，功能名称
          * @param contents 需要记录的内容
          * */
-        fun storage(blockName :String , content: Any){
-            log(FILE or D, blockName, content)
+        fun storage(showLogcat: Boolean = false, blockName :String = "", vararg contents: Any){
+            show_logcat = showLogcat
+            if(TextUtils.isEmpty(blockName)){
+                log(I, sConfig!!.mGlobalTag, *contents)
+            }else{
+                log(I, blockName, *contents)
+            }
         }
 
-        fun v(vararg contents: Any) {
+        fun storage(blockName :String = "", vararg contents: Any){
+            show_logcat = false
+            if(TextUtils.isEmpty(blockName)){
+                log(I, sConfig!!.mGlobalTag, *contents)
+            }else{
+                log(I, blockName, *contents)
+            }
+        }
+
+        private fun v(vararg contents: Any) {
             log(V, sConfig!!.mGlobalTag, *contents)
         }
 
@@ -520,7 +542,7 @@ class KLog private constructor() {
             log(V, tag, *contents)
         }
 
-        fun d(vararg contents: Any) {
+        private fun d(vararg contents: Any) {
             log(D, sConfig!!.mGlobalTag, *contents)
         }
 
@@ -528,7 +550,7 @@ class KLog private constructor() {
             log(D, tag, *contents)
         }
 
-        fun i(vararg contents: Any) {
+        private fun i(vararg contents: Any) {
             log(I, sConfig!!.mGlobalTag, *contents)
         }
 
@@ -536,7 +558,7 @@ class KLog private constructor() {
             log(I, tag, *contents)
         }
 
-        fun w(vararg contents: Any) {
+        private fun w(vararg contents: Any) {
             log(W, sConfig!!.mGlobalTag, *contents)
         }
 
@@ -544,7 +566,7 @@ class KLog private constructor() {
             log(W, tag, *contents)
         }
 
-        fun e(vararg contents: Any) {
+        private fun e(vararg contents: Any) {
             log(E, sConfig!!.mGlobalTag, *contents)
         }
 
@@ -552,7 +574,7 @@ class KLog private constructor() {
             log(E, tag, *contents)
         }
 
-        fun a(vararg contents: Any) {
+        private fun a(vararg contents: Any) {
             log(A, sConfig!!.mGlobalTag, *contents)
         }
 
@@ -560,7 +582,7 @@ class KLog private constructor() {
             log(A, tag, *contents)
         }
 
-        fun file(content: Any) {
+        private fun file(content: Any) {
             log(FILE or D, sConfig!!.mGlobalTag, content)
         }
 
@@ -576,7 +598,7 @@ class KLog private constructor() {
             log(FILE or type, tag, content)
         }
 
-        fun json(content: String) {
+        private fun json(content: String) {
             log(JSON or D, sConfig!!.mGlobalTag, content)
         }
 
@@ -584,7 +606,7 @@ class KLog private constructor() {
             log(JSON or type, sConfig!!.mGlobalTag, content)
         }
 
-        fun json(tag: String, content: String) {
+        private fun json(tag: String, content: String) {
             log(JSON or D, tag, content)
         }
 
@@ -592,7 +614,7 @@ class KLog private constructor() {
             log(JSON or type, tag, content)
         }
 
-        fun xml(content: String) {
+        private fun xml(content: String) {
             log(XML or D, sConfig!!.mGlobalTag, content)
         }
 
@@ -600,7 +622,7 @@ class KLog private constructor() {
             log(XML or type, sConfig!!.mGlobalTag, content)
         }
 
-        fun xml(tag: String, content: String) {
+        private fun xml(tag: String, content: String) {
             log(XML or D, tag, content)
         }
 
@@ -616,8 +638,10 @@ class KLog private constructor() {
             if (type_low < sConfig!!.mConsoleFilter && type_low < sConfig!!.mFileFilter) return
             val tagHead = processTagAndHead(tag)
             val body = processBody(type_high, *contents)
-            if (sConfig!!.mLog2ConsoleSwitch && type_low >= sConfig!!.mConsoleFilter && type_high != FILE) {
-                print2Console(type_low, tagHead.tag, tagHead.consoleHead, body)
+            if(show_logcat){
+                if (sConfig!!.mLog2ConsoleSwitch && type_low >= sConfig!!.mConsoleFilter && type_high != FILE) {
+                    print2Console(type_low, tagHead.tag, tagHead.consoleHead, body)
+                }
             }
             if ((sConfig!!.mLog2FileSwitch || type_high == FILE) && type_low >= sConfig!!.mFileFilter) {
                 print2File(type_low, tagHead.tag, tagHead.fileHead + body)

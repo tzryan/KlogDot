@@ -26,7 +26,7 @@ allprojects {
 android
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.tzlog.dotlib:TzLogDotLib:1.0.2@aar'
+    implementation 'com.tzlog.dotlib:TzLogDotLib:1.0.3@aar'
 }
 ```
 

@@ -21,7 +21,6 @@ allprojects {
 ```
 ### 在app目录下的build.gradle添加如下
 ```
-android
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.tzlog.dotlib:TzLogDotLib:1.0.3@aar'
@@ -30,8 +29,7 @@ dependencies {
 
 ###init初始化方法
 ```
-KLog.init(this)
-               .setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，包括输出到控制台和文件，默认开
+KLog.init(this).setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，包括输出到控制台和文件，默认开
                .setConsoleSwitch(BuildConfig.DEBUG)// 设置是否输出到控制台开关，默认开
                .setGlobalTag("车轮驾考通")// 设置log全局标签，默认为空
                // 当全局标签不为空时，我们输出的log全部为该tag，

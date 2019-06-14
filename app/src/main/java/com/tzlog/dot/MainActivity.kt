@@ -69,7 +69,8 @@ class MainActivity : AppCompatActivity() {
             data?.run {
                 var list = this.getStringArrayListExtra(KLogChooseActivity.DATA_CODE)
                 list?.let {
-                    Toast.makeText(this@MainActivity ,"数组长度"+list.size,Toast.LENGTH_SHORT).show()
+                    //list[i]中String为日志文件的全路径
+                    Toast.makeText(this@MainActivity ,"选中了"+list.size+"个Log日志文件",Toast.LENGTH_SHORT).show()
                 }
             }
         }

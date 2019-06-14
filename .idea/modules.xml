@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/KlogDot.iml" filepath="$PROJECT_DIR$/.idea/KlogDot.iml" />
       <module fileurl="file://$PROJECT_DIR$/KlogDot.iml" filepath="$PROJECT_DIR$/KlogDot.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dotlib/dotlib.iml" filepath="$PROJECT_DIR$/dotlib/dotlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/dotlib/dotlib.iml" filepath="$PROJECT_DIR$/dotlib/dotlib.iml" />
     </modules>
   </component>

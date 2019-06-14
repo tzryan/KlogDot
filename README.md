@@ -12,7 +12,8 @@ allprojects {
 }
 ```
 ### 在app目录下的build.gradle添加如下
-```android
+```
+android
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.tzlog.dotlib:TzLogDotLib:1.0.2@aar'
@@ -20,7 +21,8 @@ dependencies {
 ```
 
 ###init初始化方法
-```KLog.init(this)
+```
+KLog.init(this)
                .setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，包括输出到控制台和文件，默认开
                .setConsoleSwitch(BuildConfig.DEBUG)// 设置是否输出到控制台开关，默认开
                .setGlobalTag("车轮驾考通")// 设置log全局标签，默认为空
@@ -45,7 +47,25 @@ dependencies {
                })
 ```
 ###调用方法
-```KLog.storage("板块或标题名称A","二级标题A",JSON)
-   KLog.storage(true,"板块或标题名称B","二级标题B","三级标题B",JSON)//true为存储在file的同时，输出在logcat中
+```
+KLog.storage("板块或标题名称A","二级标题A",JSON)
+KLog.storage(true,"板块或标题名称B","二级标题B","三级标题B",JSON)//true为存储在file的同时，输出在logcat中
+KLogChooseActivity.enterForResult(this,true)//调起选择Log日志文件的UI
+KLog.getDirPath() //获取日志的存储目录Path
+```
+###选中数据的回调方法
+```
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == KLogChooseActivity.REQUEST_CODE && resultCode == KLogChooseActivity.RESULT_CODE){
+            data?.run {
+                var list = this.getStringArrayListExtra(KLogChooseActivity.DATA_CODE)
+                list?.let {
+                    //list[i]中String为日志文件的全路径
+                    Toast.makeText(this@MainActivity ,"选中了"+list.size+"个Log日志文件",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 ```
 

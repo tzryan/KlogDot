@@ -110,7 +110,7 @@ class KLog private constructor() {
             if (isSpace(dir)) {
                 mDir = null
             } else {
-                mDir = if (dir.endsWith(FILE_SEP)) dir else dir + FILE_SEP
+                mDir = if (dir.endsWith(FILE_SEP.toString())) dir else dir + FILE_SEP
             }
             return this
         }
@@ -836,7 +836,7 @@ class KLog private constructor() {
                 return
             }
             val sb = StringBuilder()
-            val lines = msg.split(LINE_SEP.toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+            val lines = msg.split(LINE_SEP!!.toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
             for (line in lines) {
                 Log.println(type, tag, LEFT_BORDER + line)
             }
@@ -858,7 +858,7 @@ class KLog private constructor() {
                     }
                     sb.append(MIDDLE_BORDER).append(LINE_SEP)
                 }
-                for (line in msg.split(LINE_SEP.toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()) {
+                for (line in msg.split(LINE_SEP!!.toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()) {
                     sb.append(LEFT_BORDER).append(line).append(LINE_SEP)
                 }
                 sb.append(BOTTOM_BORDER)

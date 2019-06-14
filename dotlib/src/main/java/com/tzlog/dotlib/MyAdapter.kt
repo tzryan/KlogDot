@@ -88,7 +88,7 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder> {
 //            intent.setDataAndType(contentUri, "application/vnd.android.package-archive")//打开安装APP
             intent.setDataAndType(contentUri, "text/plain")
         } else {
-//            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive")//打开安装App
+            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive")//打开安装App
             intent.setDataAndType(Uri.fromFile(file), "text/plain")
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }

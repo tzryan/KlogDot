@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 apply from: 'maven-release-aar.gradle'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 'android-Q'
     //-Pandroid.debug.obsoleteApi=true
 
     defaultConfig {

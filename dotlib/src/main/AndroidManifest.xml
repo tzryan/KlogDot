@@ -4,7 +4,6 @@
 
     <application>
 
-
         <activity
                 android:name=".KLogChooseActivity"
                 android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>

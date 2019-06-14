@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.tzlog.dotlib</groupId>
   <artifactId>TzLogDotLib</artifactId>
-  <version>1.0.31</version>
+  <version>0.0.32</version>
   <packaging>aar</packaging>
   <dependencies>
     <dependency>

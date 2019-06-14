@@ -90,7 +90,7 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
                     android:name="com.google.android.actions"
                     android:resource="@xml/filepaths"/>
             <provider
-                    android:name="androidx.core.content.FileProvider"
+                    android:name="com.tzlog.dotlib.KLogProvider"
                     android:authorities="com.tzlog.dotlib.fileProvider"
                     android:grantUriPermissions="true"
                     android:exported="false">

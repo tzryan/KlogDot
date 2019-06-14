@@ -1,7 +1,8 @@
 # KlogDot
 #使用方法：
 ###在根目录的 build.gradle添加
-```allprojects {
+```
+allprojects {
     repositories {
         google()
         jcenter()

@@ -1,4 +1,14 @@
 # KlogDot
+##使用场景
+```
+在日常开发中，我们经常回遇到用户反馈哪里哪里出了问题，但是用户又无法正确表达刚才的操作或忘记了操作，甚至比较复杂
+的程序逻辑，就算用户告知了你如何操作的，也无法找出错误代码，这时可以用传统的PC端常用的方式“log打点”，记录下用户
+操作以及重要代码运行时的日志，可以选在在合适的时机上传给服务器，也可以让用户自主选择相应时间段的日志上传
+主要功能：（1）KLog.storage("示例标题名称A","二级标题A",JSON) 打点记录
+        （2）KLogChooseActivity.enterForResult(this,true) 吊起用户选择日志的UI界面
+        （3）KLog.storage(true，"示例标题名称A","二级标题A",JSON) 打点记录，同时在logcat中也会有log.i输出
+```
+
 #使用方法：
 ###在根目录的 build.gradle添加
 ```
@@ -52,6 +62,7 @@ KLog.storage("板块或标题名称A","二级标题A",JSON)
 KLog.storage(true,"板块或标题名称B","二级标题B","三级标题B",JSON)//true为存储在file的同时，输出在logcat中
 KLogChooseActivity.enterForResult(this,true)//调起选择Log日志文件的UI
 KLog.getDirPath() //获取日志的存储目录Path
+...
 ```
 ###选中数据的回调方法
 ```

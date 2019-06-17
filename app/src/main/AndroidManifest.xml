@@ -18,12 +18,12 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-                android:name="com.google.android.actions"
-                android:resource="@xml/filepaths"/>
+        <!--<meta-data-->
+                <!--android:name="com.google.android.actions"-->
+                <!--android:resource="@xml/filepaths"/>-->
         <provider
                 android:name="com.tzlog.dotlib.KLogProvider"
-                android:authorities="com.tzlog.dotlib.fileProvider"
+                android:authorities="klogdot.fileProvider"
                 android:grantUriPermissions="true"
                 android:exported="false">
             <meta-data

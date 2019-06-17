@@ -86,18 +86,17 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
             </paths>
             
 2.在你自己项目的AndroidManifest.xml文件中添加，注意下面的authorities并不是包名，只是一个命名，无需修改
-            <meta-data
-                    android:name="com.google.android.actions"
-                    android:resource="@xml/filepaths"/>
-            <provider
-                    android:name="com.tzlog.dotlib.KLogProvider"
-                    android:authorities="com.tzlog.dotlib.fileProvider"
-                    android:grantUriPermissions="true"
-                    android:exported="false">
-                <meta-data
-                        android:name="android.support.FILE_PROVIDER_PATHS"
-                        android:resource="@xml/filepaths" />
-            </provider>
+  KLogProvider是一个自定义继承自androidx.core.content.FileProvider类，为了防止使用者也做了适配AndroidQ，
+  也在清单文件中定义了provider，导致name冲突
+                    <provider
+                            android:name="com.tzlog.dotlib.KLogProvider"
+                            android:authorities="klogdot.fileProvider"
+                            android:grantUriPermissions="true"
+                            android:exported="false">
+                        <meta-data
+                                android:name="android.support.FILE_PROVIDER_PATHS"
+                                android:resource="@xml/filepaths" />
+                    </provider>
 ```
 
 

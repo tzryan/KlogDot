@@ -84,7 +84,8 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder> {
         //判断是否是AndroidN以及更高的版本
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-            val contentUri  = FileProvider.getUriForFile(mContext, BuildConfig.APPLICATION_ID + ".fileProvider", file)
+//            val contentUri  = FileProvider.getUriForFile(mContext, BuildConfig.APPLICATION_ID + ".fileProvider", file)
+            val contentUri  = FileProvider.getUriForFile(mContext,  "klogdot.fileProvider", file)
 //            intent.setDataAndType(contentUri, "application/vnd.android.package-archive")//打开安装APP
             intent.setDataAndType(contentUri, "text/plain")
         } else {

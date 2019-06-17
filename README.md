@@ -23,7 +23,7 @@ allprojects {
 ```
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.tzlog.dotlib:TzLogDotLib:1.0.32@aar'
+    implementation 'com.tzlog.dotlib:TzLogDotLib:0.0.33@aar'
 }
 ```
 
@@ -77,26 +77,30 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
 ```
 
 ### 适配android-Q （不适配可能导致7.0手机上查看日志时回崩溃）
+
+#1.请在你自己的项目res目录下新建一个xml文件夹，在此文件夹中新建filepaths.xml,内容如下：
 ```
-1.请在你自己的项目res目录下新建一个xml文件夹，在此文件夹中新建filepaths.xml,内容如下：
-            <?xml version="1.0" encoding="utf-8"?>
-            <paths>
-                <external-path path="Android/data/你的包名/" name="files_root" />
-                <external-path path="." name="external_storage_root" />
-            </paths>
+<?xml version="1.0" encoding="utf-8"?>
+      <paths>
+         <external-path path="Android/data/你的包名/" name="files_root" />
+         <external-path path="." name="external_storage_root" />
+      </paths>
+```
             
-2.在你自己项目的AndroidManifest.xml文件中添加，注意下面的authorities并不是包名，只是一个命名，无需修改
-  KLogProvider是一个自定义继承自androidx.core.content.FileProvider类，为了防止使用者也做了适配AndroidQ，
-  也在清单文件中定义了provider，导致name冲突
-                    <provider
-                            android:name="com.tzlog.dotlib.KLogProvider"
-                            android:authorities="klogdot.fileProvider"
-                            android:grantUriPermissions="true"
-                            android:exported="false">
-                        <meta-data
-                                android:name="android.support.FILE_PROVIDER_PATHS"
-                                android:resource="@xml/filepaths" />
-                    </provider>
+#2.在你自己项目的AndroidManifest.xml文件中添加，注意下面的authorities并不是包名，只是一个命名，
+#无需修改，KLogProvider是一个自定义继承自androidx.core.content.FileProvider类，为了防止使用
+#者也做了适配AndroidQ，也在清单文件中定义了provider，导致name冲突
+
+```
+    <provider
+         android:name="com.tzlog.dotlib.KLogProvider"
+         android:authorities="klogdot.fileProvider"
+         android:grantUriPermissions="true"
+         android:exported="false">
+         <meta-data
+              android:name="android.support.FILE_PROVIDER_PATHS"
+              android:resource="@xml/filepaths" />
+    </provider>
 ```
 
 

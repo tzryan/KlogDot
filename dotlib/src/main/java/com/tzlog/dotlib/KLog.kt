@@ -1,5 +1,6 @@
 package com.tzlog.dotlib
 
+import android.app.Application
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
@@ -493,11 +494,11 @@ class KLog private constructor() {
         //SimpleArrayMap<Any, Any>()
         //<Class, IFormatter>
 
-        private var sAppContext: Context? = null
+        var sAppContext: Application? = null
         private var sConfig: Config? = null
         private var show_logcat: Boolean = false
 
-        fun init(context: Context): Config {
+        fun init(context: Application): Config {
             sAppContext = context
             if (sConfig == null) {
                 sConfig = Config()

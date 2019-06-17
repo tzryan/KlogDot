@@ -30,7 +30,7 @@
                   android:paddingRight="5dp"
                   android:gravity="center"
                   android:textSize="16sp"
-                  android:textColor="#111"
+                  android:textColor="#555"
                   android:text="选择上传日志"/>
 
         <TextView
@@ -49,7 +49,7 @@
 
     <View android:layout_width="match_parent"
           android:layout_height="0.5dp"
-          android:background="#ccc"/>
+          android:background="#eee"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mRecyclerView"
@@ -63,7 +63,7 @@
             android:layout_height="match_parent"
             android:visibility="gone"
             android:gravity="center"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:text="暂无日志~"
     tools:visibility="visible"/>
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 更改chexkbox 颜色  使用 android:theme="@style/CheckBoxWhite". -->
+    <style name="CheckBoxBlue" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <!-- 正常颜色 -->
+        <item name="colorControlNormal">#cccccc</item>
+        <!-- 选中时颜色 -->
+        <item name="colorAccent">#ff39acff</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ff39acff</item>
+        <item name="color">#ff39acff</item>
+    </style>
+
+</resources>

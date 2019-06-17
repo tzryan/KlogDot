@@ -1,5 +1,6 @@
 package com.tzlog.dotlib
 
+import android.content.ComponentName
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import java.io.File
 import java.io.Serializable
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import androidx.core.content.FileProvider
+import android.content.pm.PackageManager.GET_META_DATA
+import android.content.pm.PackageManager.GET_META_DATA
+
+
+
+
 
 
 /**
@@ -69,23 +77,21 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     private fun startIntent(file:File){
 
-
-//        val intent = Intent("android.intent.action.VIEW")
-//        intent.addCategory("android.intent.category.DEFAULT")
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//        if (file.name.endsWith(".txt")) {
-//            val uri = Uri.fromFile(file)
-//            intent.setDataAndType(uri, "text/plain")
-//            mContext.startActivity(intent)
-//        }
-
+        var kLogDataKey = "klogdot.fileProvider"
+        try {
+//            val appInfo = KLog.sAppContext?.packageManager?.getApplicationInfo(KLog.sAppContext?.packageName, GET_META_DATA)
+//            kLogDataKey = appInfo?.metaData?.getString("kLogDataKey").toString()
+            kLogDataKey = KLog.sAppContext?.packageName.toString() + ".fileProvider"
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
 
         val intent = Intent(Intent.ACTION_VIEW)
         //判断是否是AndroidN以及更高的版本
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
 //            val contentUri  = FileProvider.getUriForFile(mContext, BuildConfig.APPLICATION_ID + ".fileProvider", file)
-            val contentUri  = FileProvider.getUriForFile(mContext,  "klogdot.fileProvider", file)
+            val contentUri  = FileProvider.getUriForFile(mContext,  kLogDataKey, file)
 //            intent.setDataAndType(contentUri, "application/vnd.android.package-archive")//打开安装APP
             intent.setDataAndType(contentUri, "text/plain")
         } else {

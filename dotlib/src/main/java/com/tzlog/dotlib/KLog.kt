@@ -77,7 +77,7 @@ class KLog private constructor() {
             }
         }
 
-        fun setMaxChooseSize(maxChooseSiz: Int): Config {
+        fun setMaxChoose(maxChooseSiz: Int): Config {
             maxChooseSize = maxChooseSiz
             return this
         }

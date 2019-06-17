@@ -23,7 +23,7 @@ allprojects {
 ```
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.tzlog.dotlib:TzLogDotLib:0.0.38@aar'
+    implementation 'com.tzlog.dotlib:TzLogDotLib:0.0.39@aar'
 }
 ```
 

@@ -12,4 +12,14 @@
         <item name="color">#ff39acff</item>
     </style>
 
+    <style name="animTheme" parent="ActivityAnimation">
+        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+    </style>
+
+    <style name="ActivityAnimation" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:activityOpenEnterAnimation">@anim/dialog_enter_bottom</item>
+        <item name="android:activityOpenExitAnimation">@anim/dialog_out_bottom</item>
+        <item name="android:activityCloseExitAnimation">@anim/dialog_out_bottom</item>
+    </style>
+
 </resources>

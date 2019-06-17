@@ -23,13 +23,14 @@ allprojects {
 ```
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.tzlog.dotlib:TzLogDotLib:0.0.36@aar'
+    implementation 'com.tzlog.dotlib:TzLogDotLib:0.0.37@aar'
 }
 ```
 
 ## init初始化方法
 ```
 KLog.init(application).setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，包括输出到控制台和文件，默认开
+               .setMaxChooseSize(3) //设置UI界面KLogChooseActivity中，最多选择几个文件，默认3个
                .setConsoleSwitch(BuildConfig.DEBUG)// 设置是否输出到控制台开关，默认开
                .setGlobalTag("车轮驾考通")// 设置log全局标签，默认为空
                // 当全局标签不为空时，我们输出的log全部为该tag，

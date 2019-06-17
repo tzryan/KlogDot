@@ -67,7 +67,7 @@ class KLogChooseActivity : AppCompatActivity() {
         }
         //   /storage/emulated/0/Android/data/com.tzlog.dot/cache/log/KLog-2019-06-12H18.txt
         mRecyclerView.layoutManager = LinearLayoutManager(this)
-        mAdapter =  MyAdapter(this,listdata)
+        mAdapter =  MyAdapter(this,listdata,KLog.config.maxChooseSize)
         mAdapter?.localCheck = localCheck
         mRecyclerView.adapter = mAdapter
         tv_cancel.setOnClickListener { v->

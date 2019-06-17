@@ -17,6 +17,7 @@ class MyApp :Application(){
     override fun onCreate() {
         super.onCreate()
         KLog.init(this)
+            .setMaxChooseSize(1)
             .setConsoleSwitch(BuildConfig.DEBUG)// 设置是否输出到控制台开关，默认开
             .setGlobalTag("车轮驾考通")// 设置log全局标签，默认为空
             .setFilePrefix("KLog")// 当文件前缀为空时，默认为"KLog"，即写入文件为"tlog-MM-dd.txt"

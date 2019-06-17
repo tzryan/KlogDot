@@ -65,6 +65,7 @@ class KLog private constructor() {
         var mStackDeep = 1     // The stack's deep of log.
         var mStackOffset = 0     // The stack's offset of log.
         var mSaveDays :Float = -1.0f    // The save days of log.
+        var maxChooseSize = 3
 
         init {
             if (mDefaultDir == null) {
@@ -74,6 +75,11 @@ class KLog private constructor() {
                     mDefaultDir = sAppContext!!.cacheDir.toString() + FILE_SEP + "klog" + FILE_SEP
                 }
             }
+        }
+
+        fun setMaxChooseSize(maxChooseSize: Int): Config{
+            this.maxChooseSize = maxChooseSize
+            return sConfig as Config
         }
 
         fun setLogSwitch(logSwitch: Boolean): Config {

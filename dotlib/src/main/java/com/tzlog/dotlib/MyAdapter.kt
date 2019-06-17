@@ -1,6 +1,5 @@
 package com.tzlog.dotlib
 
-import android.content.ComponentName
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +13,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.widget.Toast
 import androidx.core.content.FileProvider
-import android.content.pm.PackageManager.GET_META_DATA
-import android.content.pm.PackageManager.GET_META_DATA
-
-
-
-
 
 
 /**
@@ -37,11 +31,13 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder> {
     var mDatas: List<IData>
     var mInflater: LayoutInflater
     var localCheck = false
+    var maxSize = 3
 
     //这是构造方法
-    constructor(context: Context, list: List<IData>) {
+    constructor(context: Context, list: List<IData>, maxChooseSize: Int = 3) {
         this.mContext = context
         this.mDatas = list
+        this.maxSize = maxChooseSize
         mInflater = LayoutInflater.from(mContext)
     }
 
@@ -68,8 +64,25 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.checkBox.isChecked = mDatas[position].checked
         holder.checkBox.setOnCheckedChangeListener {
             buttonView, isChecked ->
-            run {
-                mDatas[position].checked = isChecked
+            var _count = 0
+            for(item in mDatas){
+                if(item.checked)
+                    _count ++
+            }
+            if(_count < maxSize){
+                run {
+                    mDatas[position].checked = isChecked
+                }
+            }else{
+                if(isChecked){
+                    //超过数量，用户选true，强制改false
+                    holder.checkBox.isChecked = false
+                    mDatas[position].checked = false
+                    Toast.makeText(mContext,"最多选择${maxSize}个",Toast.LENGTH_SHORT).show()
+                }else{
+                    //超过数量，用户取消
+                    mDatas[position].checked = false
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
 # KlogDot
-##使用场景
+## 使用场景
 ```
 在日常开发中，我们经常回遇到用户反馈哪里哪里出了问题，但是用户又无法正确表达刚才的操作或忘记了操作，甚至比较复杂
 的程序逻辑，就算用户告知了你如何操作的，也无法找出错误代码，这时可以用传统的PC端常用的方式“log打点”，记录下用户
@@ -9,8 +9,8 @@
         （3）KLog.storage(true，"示例标题名称A","二级标题A",JSON) 打点记录，同时在logcat中也会有log.i输出
 ```
 
-#使用方法：
-###在根目录的 build.gradle添加
+# 使用方法：
+## 在根目录的 build.gradle添加
 ```
 allprojects {
     repositories {
@@ -19,7 +19,7 @@ allprojects {
     }
 }
 ```
-### 在app目录下的build.gradle添加如下
+## 在app目录下的build.gradle添加如下
 ```
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -27,7 +27,7 @@ dependencies {
 }
 ```
 
-###init初始化方法
+## init初始化方法
 ```
 KLog.init(this).setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，包括输出到控制台和文件，默认开
                .setConsoleSwitch(BuildConfig.DEBUG)// 设置是否输出到控制台开关，默认开
@@ -52,7 +52,7 @@ KLog.init(this).setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，包括输
                    }
                })
 ```
-###调用方法
+## 调用方法
 ```
 KLog.storage("板块或标题名称A","二级标题A",JSON)
 KLog.storage(true,"板块或标题名称B","二级标题B","三级标题B",JSON)//true为存储在file的同时，输出在logcat中
@@ -60,7 +60,7 @@ KLogChooseActivity.enterForResult(this,true)//调起选择Log日志文件的UI
 KLog.getDirPath() //获取日志的存储目录Path
 ...
 ```
-###选中数据的回调方法
+## 选中数据的回调方法
 ```
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -76,9 +76,9 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
     }
 ```
 
-### 适配android-Q （不适配可能导致7.0手机上查看日志时回崩溃）
+## 适配android-Q （不适配可能导致7.0手机上查看日志时回崩溃）
 
-#1.请在你自己的项目res目录下新建一个xml文件夹，在此文件夹中新建filepaths.xml,内容如下：
+### 1.请在你自己的项目res目录下新建一个xml文件夹，在此文件夹中新建filepaths.xml,内容如下：
 ```
 <?xml version="1.0" encoding="utf-8"?>
       <paths>
@@ -87,9 +87,9 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
       </paths>
 ```
             
-#2.在你自己项目的AndroidManifest.xml文件中添加，注意下面的authorities并不是包名，只是一个命名，
-#无需修改，KLogProvider是一个自定义继承自androidx.core.content.FileProvider类，为了防止使用
-#者也做了适配AndroidQ，也在清单文件中定义了provider，导致name冲突
+### 2.在你自己项目的AndroidManifest.xml文件中添加，注意下面的authorities并不是包名，只是一个命名，
+### 无需修改，KLogProvider是一个自定义继承自androidx.core.content.FileProvider类，为了防止使用
+### 者也做了适配AndroidQ，也在清单文件中定义了provider，导致name冲突
 
 ```
     <provider

@@ -79,7 +79,7 @@ class KLog private constructor() {
 
         fun setMaxChooseSize(maxChooseSize: Int): Config{
             this.maxChooseSize = maxChooseSize
-            return sConfig as Config
+            return this
         }
 
         fun setLogSwitch(logSwitch: Boolean): Config {

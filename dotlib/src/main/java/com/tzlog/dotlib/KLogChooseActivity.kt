@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_chooselog.*
 import java.io.File
+import java.text.DecimalFormat
 
 /**
  * @ComputerCode: tianzhen

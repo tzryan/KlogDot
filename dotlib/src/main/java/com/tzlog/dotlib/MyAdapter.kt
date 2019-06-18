@@ -1,5 +1,6 @@
 package com.tzlog.dotlib
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import android.net.Uri
 import android.os.Build
 import android.widget.Toast
 import androidx.core.content.FileProvider
+import java.text.DecimalFormat
 
 
 /**
@@ -54,8 +56,9 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return 0
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemText.text = mDatas[position].file.name
+        holder.itemText.text =  "${mDatas[position].file.name }-${readableFileSize(mDatas[position].file.length())}"
         if(localCheck){
             holder.itemText.setOnClickListener {
                 startIntent(mDatas[position].file)
@@ -85,6 +88,18 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 }
             }
         }
+    }
+
+    fun readableFileSize(size: Long): String {
+        if (size <= 0) return "0"
+        val units = arrayOf("B", "KB", "MB", "GB", "TB")
+        val digitGroups = (Math.log10(size.toDouble()) / Math.log10(1024.0)).toInt()
+        return DecimalFormat("#,##0.#").format(
+            size / Math.pow(
+                1024.0,
+                digitGroups.toDouble()
+            )
+        ) + " " + units[digitGroups]
     }
 
 

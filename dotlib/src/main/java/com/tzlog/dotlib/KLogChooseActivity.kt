@@ -60,8 +60,9 @@ class KLogChooseActivity : AppCompatActivity() {
         if(dirs.exists() && dirs.isDirectory){
             var list = dirs.listFiles()
             list?.run {
-                for (f in list){
-                    listdata.add(IData(f,false))
+//                for (f in list){
+                for ( i : Int  in (list.size-1) downTo 0 step 1){
+                    listdata.add(IData(list[i],false))
                 }
             }
         }

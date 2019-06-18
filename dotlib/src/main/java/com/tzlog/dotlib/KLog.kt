@@ -952,6 +952,7 @@ class KLog private constructor() {
                 .append(T[type - V])
                 .append("/")
                 .append(tag)
+                .append(LINE_SEP)
                 .append(msg)
                 .append(LINE_SEP)
             val content = sb.toString()

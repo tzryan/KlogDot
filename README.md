@@ -23,7 +23,7 @@ allprojects {
 ```
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.tzlog.dotlib:TzLogDotLib:0.0.43@aar'
+    implementation 'com.tzlog.dotlib:TzLogDotLib:0.1.12@aar'
 }
 ```
 
@@ -38,7 +38,10 @@ KLog.init(application).setLogSwitch(BuildConfig.DEBUG)// 设置log总开关，�
                .setLogHeadSwitch(true)// 设置log头信息开关，默认为开
                .setLog2FileSwitch(true)// 打印log时是否存到文件的开关，默认关
                .setDir("")// 当自定义路径为空时，写入应用的/cache/log/目录中
+               //推荐前缀加点，隐藏文件
                .setFilePrefix("KLog")// 当文件前缀为空时，默认为"KLog"，即写入文件为"tlog-MM-dd.txt"
+               //推荐将后缀设为.log ，用户将无法打开，但是使用库中的KLogChooseActivity打开后，文件后缀将变为.txt
+               .setFileSuffix(".txt")// 当文件后缀为空时，默认为".txt"，即写入文件为"klog-MM-dd.txt"
                .setBorderSwitch(true)// 输出日志是否带边框开关，默认开
                .setSingleTagSwitch(true)// 一条日志仅输出一条，默认开，为美化 AS 3.1.0 的 Logcat
                .setConsoleFilter(KLog.V)// log的控制台过滤器，和logcat过f滤器同理，默认Verbose.

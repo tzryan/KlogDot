@@ -5,7 +5,7 @@ ext {// ext is a gradle closure allowing the declaration of global properties
 //    GITHUB_REPO_PATH = uri('../')      //这里指定的就是刚刚新建项目后clone下来的在本地的路径
     PUBLISH_GROUP_ID = 'com.tzlog.dotlib'
     PUBLISH_ARTIFACT_ID = 'TzLogDotLib'
-    PUBLISH_VERSION = '0.0.43'
+    PUBLISH_VERSION = '0.1.12'
 }
 // 3.maven-路径
 uploadArchives {

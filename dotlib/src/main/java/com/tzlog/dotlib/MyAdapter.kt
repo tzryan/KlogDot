@@ -104,11 +104,18 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
     private fun startIntent(file:File){
+        //先判断是否是txt文件，否则打不开
+        var intent_file :File? = null
+        if(!file.name.endsWith(".txt",true)){
+            var newNameFile = File(file.absolutePath+".txt")
+            file.renameTo(newNameFile)
+            intent_file = newNameFile
+        }else{
+            intent_file = file
+        }
 
         var kLogDataKey = "klogdot.fileProvider"
         try {
-//            val appInfo = KLog.sAppContext?.packageManager?.getApplicationInfo(KLog.sAppContext?.packageName, GET_META_DATA)
-//            kLogDataKey = appInfo?.metaData?.getString("kLogDataKey").toString()
             kLogDataKey = KLog.sAppContext?.packageName.toString() + ".fileProvider"
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
@@ -118,13 +125,11 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder> {
         //判断是否是AndroidN以及更高的版本
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
-//            val contentUri  = FileProvider.getUriForFile(mContext, BuildConfig.APPLICATION_ID + ".fileProvider", file)
-            val contentUri  = FileProvider.getUriForFile(mContext,  kLogDataKey, file)
-//            intent.setDataAndType(contentUri, "application/vnd.android.package-archive")//打开安装APP
+            val contentUri  = FileProvider.getUriForFile(mContext,  kLogDataKey, intent_file)
+            //intent.setDataAndType(contentUri, "application/vnd.android.package-archive")//打开安装APP
             intent.setDataAndType(contentUri, "text/plain")
         } else {
-            intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive")//打开安装App
-            intent.setDataAndType(Uri.fromFile(file), "text/plain")
+            intent.setDataAndType(Uri.fromFile(intent_file), "text/plain")
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
         mContext.startActivity(intent)

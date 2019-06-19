@@ -52,6 +52,7 @@ class KLog private constructor() {
         var mDefaultDir: String? = null// The default storage directory of log.
         var mDir: String? = null       // The storage directory of log.
         var mFilePrefix = "util"// The file prefix of log.
+        var suffix = ".txt"// The file prefix of log.
         var mLogSwitch = true  // The switch of log.
         var mLog2ConsoleSwitch = true  // The logcat's switch of log.
         var mGlobalTag: String? = null  // The global tag of log.
@@ -132,6 +133,13 @@ class KLog private constructor() {
                 mFilePrefix = "util"
             } else {
                 mFilePrefix = filePrefix
+            }
+            return this
+        }
+
+        fun setFileSuffix(su : String?): Config {
+            su?.run {
+                suffix = su
             }
             return this
         }
@@ -941,7 +949,7 @@ class KLog private constructor() {
             val date = format.substring(0, 10)
             val time = format.substring(11)
             val fullPath = ((if (sConfig!!.mDir == null) sConfig!!.mDefaultDir else sConfig!!.mDir)
-                    + sConfig!!.mFilePrefix + "-" + date + "H" + (time.substring(0,2)) + ".txt")
+                    + sConfig!!.mFilePrefix + "-" + date + "H" + (time.substring(0,2))+ sConfig!!.suffix )//+ ".txt"
 //                    + sConfig!!.mFilePrefix + "-" + date + ".txt")
             if (!createOrExistsFile(fullPath)) {
                 Log.e("KLog", "create $fullPath failed!")
@@ -991,7 +999,7 @@ class KLog private constructor() {
             val file = File(filePath)
             val parentFile = file.parentFile
             val files =
-                parentFile.listFiles { dir, name -> name.matches(("^" + sConfig!!.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}H[0-9]{2}.txt$").toRegex()) }
+                parentFile.listFiles { dir, name -> name.matches(("^" + sConfig!!.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}H[0-9]{2}${sConfig!!.suffix}$").toRegex()) }//.txt
 //                parentFile.listFiles { dir, name -> name.matches(("^" + sConfig!!.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}.txt$").toRegex()) }
             files?.run {
                 if (files.isEmpty()) return@deleteDueLogs

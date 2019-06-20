@@ -55,6 +55,7 @@ class KLogChooseActivity : AppCompatActivity() {
         localCheck = intent.getBooleanExtra(LOCAL_CHECK_CODE,false)
     }
 
+    @SuppressLint("SetTextI18n")
     fun initData(){
 
         var dirs = File(KLog.getDirPath())
@@ -96,11 +97,16 @@ class KLogChooseActivity : AppCompatActivity() {
         }
         if(listdata.size <= 0){
             tv_no_data.visibility = View.VISIBLE
-            mRecyclerView.visibility = View.GONE
+            scroll_view.visibility = View.GONE
         }else{
             tv_no_data.visibility = View.GONE
-            mRecyclerView.visibility = View.VISIBLE
+            scroll_view.visibility = View.VISIBLE
         }
+        var time = if(KLog.config.mSaveDays < 1)
+            "1天内"
+        else
+            "${KLog.config.mSaveDays.toInt()}天"
+        tv_tip.text = "只保存最近${time}的日志~"
     }
 
     override fun onBackPressed() {

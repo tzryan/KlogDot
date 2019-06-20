@@ -88,6 +88,7 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 }
             }
         }
+
     }
 
     fun readableFileSize(size: Long): String {

@@ -949,7 +949,8 @@ class KLog private constructor() {
             val date = format.substring(0, 10)
             val time = format.substring(11)
             val fullPath = ((if (sConfig!!.mDir == null) sConfig!!.mDefaultDir else sConfig!!.mDir)
-                    + sConfig!!.mFilePrefix + "-" + date + "H" + (time.substring(0,2))+ sConfig!!.suffix )//+ ".txt"
+                    + sConfig!!.mFilePrefix + "-" + date + "H" + (time.substring(0,4) + "0")+ sConfig!!.suffix )//+ ".txt"
+            //修改文件名称时间
 //                    + sConfig!!.mFilePrefix + "-" + date + ".txt")
             if (!createOrExistsFile(fullPath)) {
                 Log.e("KLog", "create $fullPath failed!")
@@ -999,7 +1000,7 @@ class KLog private constructor() {
             val file = File(filePath)
             val parentFile = file.parentFile
             val files =
-                parentFile.listFiles { dir, name -> name.matches(("^" + sConfig!!.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}H[0-9]{2}M[0-9]{2}${sConfig!!.suffix}$").toRegex()) }//.txt
+                parentFile.listFiles { dir, name -> name.matches(("^" + sConfig!!.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}H[0-9]{2}:[0-9]{1}0${sConfig!!.suffix}$").toRegex()) }//.txt
 //                parentFile.listFiles { dir, name -> name.matches(("^" + sConfig!!.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}.txt$").toRegex()) }
             files?.run {
                 if (files.isEmpty()) return@deleteDueLogs

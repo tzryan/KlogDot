@@ -7,7 +7,6 @@
 主要功能：（1）KLog.storage("示例标题名称A","二级标题A",JSON) 打点记录
         （2）KLogChooseActivity.enterForResult(this,true) 吊起用户选择日志的UI界面
         （3）KLog.storage(true，"示例标题名称A","二级标题A",JSON) 打点记录，同时在logcat中也会有log.i输出
-最新版本号：0.1.13
 ```
 
 # 使用方法：
@@ -24,7 +23,7 @@ allprojects {
 ```
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.tzlog.dotlib:TzLogDotLib:0.1.15@aar'
+    implementation 'com.tzlog.dotlib:TzLogDotLib:0.1.16@aar'
 }
 ```
 

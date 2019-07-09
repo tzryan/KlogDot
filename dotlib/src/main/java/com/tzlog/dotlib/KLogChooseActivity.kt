@@ -32,6 +32,9 @@ class KLogChooseActivity : AppCompatActivity() {
         const val DATA_CODE = "KLogChooseData"
         const val LOCAL_CHECK_CODE = "localCheck"
 
+        /**
+         * @param localCheck 是否支持点击,本地查看
+         * **/
         fun enterForResult(ctx: Activity,localCheck:Boolean = false){
             var i = Intent(ctx,KLogChooseActivity::class.java)
             i.putExtra(LOCAL_CHECK_CODE,localCheck)

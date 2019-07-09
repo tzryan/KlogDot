@@ -999,14 +999,14 @@ class KLog private constructor() {
             val file = File(filePath)
             val parentFile = file.parentFile
             val files =
-                parentFile.listFiles { dir, name -> name.matches(("^" + sConfig!!.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}H[0-9]{2}${sConfig!!.suffix}$").toRegex()) }//.txt
+                parentFile.listFiles { dir, name -> name.matches(("^" + sConfig!!.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}H[0-9]{2}M[0-9]{2}${sConfig!!.suffix}$").toRegex()) }//.txt
 //                parentFile.listFiles { dir, name -> name.matches(("^" + sConfig!!.mFilePrefix + "-[0-9]{4}-[0-9]{2}-[0-9]{2}.txt$").toRegex()) }
             files?.run {
                 if (files.isEmpty()) return@deleteDueLogs
                 val length = filePath.length
                 val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 try {
-                    val curDay = filePath.substring(length - 14, length - 4)
+                    val curDay = filePath.substring(length - 14, length - 2)
                     val dueMillis = sdf.parse(curDay).time - sConfig!!.mSaveDays * 86400000L
                     for (aFile in files) {
                         val name = aFile.name

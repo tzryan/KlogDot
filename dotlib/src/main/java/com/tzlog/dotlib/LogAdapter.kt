@@ -15,7 +15,13 @@ import kotlin.math.pow
  * @Package: com.tzlog.dotlib
  * @Description:
  **/
-class LogAdapter<T, K : BaseViewHolder>(layoutResId: Int, list: List<T>) : BaseQuickAdapter<T, K>(layoutResId, list) {
+class LogAdapter<T, K : BaseViewHolder> : BaseQuickAdapter<T, K> {
+
+    var maxSize = 3
+
+    constructor(layoutResId: Int, list: List<T>) : super(layoutResId, list){
+
+    }
 
     var localCheck = false
 

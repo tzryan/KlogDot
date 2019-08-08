@@ -22,6 +22,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:checked="false"
+            android:clickable="false"
             android:theme="@style/CheckBoxBlue"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"/>

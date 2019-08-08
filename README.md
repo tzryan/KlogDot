@@ -14,7 +14,7 @@
 # 使用方法：
 ## 在根目录的 build.gradle添加
 
-###(最新版本: 'com.tzlog.dotlib:TzLogDotLib:1.0.61@aar')
+###(最新版本: 'com.tzlog.dotlib:TzLogDotLib:1.0.62@aar')
 ```
 allprojects {
     repositories {

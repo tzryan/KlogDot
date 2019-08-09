@@ -20,6 +20,9 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -keep class com.tzlog.dotlib.**{*;}
+
+-keep class androidx.recyclerview.widget.**{*;}
+
 -keep class com.chad.library.adapter.** {
 *;
 }

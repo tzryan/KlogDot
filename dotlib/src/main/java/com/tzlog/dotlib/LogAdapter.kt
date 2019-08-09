@@ -17,11 +17,7 @@ import kotlin.math.pow
  **/
 class LogAdapter<T, K : BaseViewHolder> : BaseQuickAdapter<T, K> {
 
-    var maxSize = 3
-
-    constructor(layoutResId: Int, list: List<T>) : super(layoutResId, list){
-
-    }
+    constructor(layoutResId: Int, list: List<T>) : super(layoutResId, list)
 
     var localCheck = false
 

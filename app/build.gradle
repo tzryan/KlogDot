@@ -31,6 +31,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-//    implementation project(path: ':dotlib')
-    implementation 'com.tzlog.dotlib:TzLogDotLib:1.0.64@aar'
+    implementation project(path: ':dotlib')
+//    implementation 'com.tzlog.dotlib:TzLogDotLib:1.0.65@aar'
+//    implementation 'androidx.recyclerview:recyclerview:1.1.0-beta01'
+//    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
 }

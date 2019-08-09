@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import kotlinx.android.synthetic.main.activity_chooselog.*
@@ -52,9 +53,9 @@ class KLogChooseActivity : AppCompatActivity() {
     }
 
     val listdata = arrayListOf<IData>()
-    var mAdapter: LogAdapter<IData, BaseViewHolder>? = null
+//    var mAdapter: LogAdapter<IData, BaseViewHolder>? = null
+    var mAdapter:MyAdapter? = null
     var localCheck = false
-    var tv_no_data: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +81,8 @@ class KLogChooseActivity : AppCompatActivity() {
         }
         //   /storage/emulated/0/Android/data/com.tzlog.dot/cache/log/KLog-2019-06-12H18.txt
         mRecyclerView.layoutManager = LinearLayoutManager(this)
-        mAdapter = LogAdapter(R.layout.adapter_item_layout, listdata)
+//        mAdapter = LogAdapter(R.layout.adapter_item_layout, listdata)
+        mAdapter = MyAdapter(this, listdata, KLog.config.maxChooseSize)
         mAdapter?.localCheck = localCheck
         mRecyclerView.adapter = mAdapter
 
@@ -93,7 +95,7 @@ class KLogChooseActivity : AppCompatActivity() {
         tv_sure.setOnClickListener {
             mAdapter?.run {
                 val _list = arrayListOf<String>()
-                for (item in this.data) {
+                for (item in this.mDatas) {
                     if (item.checked) {
                         _list.add((item).file.absolutePath)
                     }
@@ -123,45 +125,41 @@ class KLogChooseActivity : AppCompatActivity() {
     @SuppressLint("InflateParams")
     private fun registerAdapterClick() {
 
-        val footer = LayoutInflater.from(this).inflate(R.layout.adapter_footer, null)
-        tv_no_data = footer.findViewById(R.id.tv_no_data)
-        mAdapter?.addFooterView(footer)
+//        val footer = LayoutInflater.from(this).inflate(R.layout.adapter_footer, null)
+//        tv_no_data = footer.findViewById(R.id.tv_no_data)
+//        mAdapter?.addFooterView(footer)
 
-        mAdapter?.setOnItemChildClickListener { adapter, view, position ->
-            when (view.id) {
-                R.id.item_text -> {
-                    val iData = (adapter.getItem(position) as IData)
-                    if (iData.checked) {
-                        (adapter.data[position] as IData).checked = false
-                        mAdapter?.notifyDataSetChanged()
+        mAdapter?.itemClickListener = object: MyAdapter.ItemClickListener {
+            override fun onClick(clickView: View, holder: MyAdapter.ViewHolder, position: Int) {
+                val iData = (mAdapter?.mDatas?.get(position))!!
+                if (iData.checked) {
+                    (mAdapter?.mDatas?.get(position))!!.checked = false
+                    holder.checkBox.isChecked = false
+//                    mAdapter?.notifyDataSetChanged()
+                } else {
+                    var _num = 0
+                    for (item in mAdapter?.mDatas!!) {
+                        if ((item).checked) {
+                            _num++
+                        }
+                    }
+                    if (_num >= KLog.config.maxChooseSize) {
+                        Toast.makeText(clickView.context, "最多选择${KLog.config.maxChooseSize}个", Toast.LENGTH_SHORT).show()
                     } else {
-                        var _num = 0
-                        for (item in adapter.data) {
-                            if ((item as IData).checked) {
-                                _num++
-                            }
-                        }
-                        if (_num >= KLog.config.maxChooseSize) {
-                            Toast.makeText(view.context, "最多选择${KLog.config.maxChooseSize}个", Toast.LENGTH_SHORT).show()
-                        } else {
-                            (adapter.data[position] as IData).checked = true
-                            mAdapter?.notifyDataSetChanged()
-                        }
+                        (mAdapter?.mDatas?.get(position))!!.checked = true
+                        holder.checkBox.isChecked = true
+//                        mAdapter?.notifyDataSetChanged()
                     }
                 }
             }
         }
 
-        mAdapter?.setOnItemChildLongClickListener { adapter, view, position ->
-            when (view?.id) {
-                R.id.item_text -> {
-                    val iData = (adapter?.getItem(position) as IData)
-                    startIntent(iData.file)
-                }
+        mAdapter?.itemLongClickListener = object : MyAdapter.ItemLongClickListener{
+            override fun onLongClick(clickView: View, holder: MyAdapter.ViewHolder, position: Int) {
+                val iData = (mAdapter?.mDatas?.get(position))!!
+                startIntent(iData.file)
             }
-            true
         }
-
     }
 
     private fun startIntent(file: File) {
